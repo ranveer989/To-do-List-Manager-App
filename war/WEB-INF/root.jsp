@@ -1,11 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.ArrayList"%>
 <html>
 <head>
 
 <title>To-Do List Manager</title>
 <link rel="stylesheet" type="text/css" href="../res/view.css" media="all">
 <script type="text/javascript" src="../res/view.js"></script>
-
+</script>
 </head>
 
 <body id="main_body">
@@ -29,6 +30,33 @@
 				<p style="text-align: center">
 					<a href="${addLink}">ADD TO-DO</a><br />
 				</p>
+				
+				<script>
+					if (document.getElementById("list")) 
+						document.getElementById("list").parentNode.removeChild(document.getElementById("list"));
+					
+				</script>
+				<%
+					ArrayList<String> todos = (ArrayList<String>) request.getAttribute("to-do-list");
+					ArrayList<Boolean> check_list = (ArrayList<Boolean>) request.getAttribute("status");
+							if (todos != null) {
+								out.write("<div id= \"list\" align=\"center\" class=\"boxed1\">");
+								out.write("<form method=\"post\">");
+								out.write("<h2 align=\"center\">Your To-do List</h2><br/>");
+								for (int i = 0; i < todos.size(); i++) {
+									if (check_list.get(i))
+										out.write("<input type=\"checkbox\" checked>"+todos.get(i));
+									else
+										out.write("<input type=\"checkbox\">" + todos.get(i));
+									out.write("<input type=\"submit\" name=\"" + (i+"edt")+"\" value=\"Edit\" \\>");
+									out.write("<input type=\"submit\" name=\"" + (i+"dlt")+"\" value=\"Delete\" \\>");
+									out.write("<br/><br/>");
+								}
+								out.write("</form>");
+								out.write("</div>");
+							}
+				%>
+			
 			</c:when>
 			<c:otherwise>
 				<div align="center">
