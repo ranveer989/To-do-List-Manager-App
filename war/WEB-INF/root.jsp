@@ -26,6 +26,9 @@
 				<p style="text-align: center">
 					Signout Here <a href="${logout_url}">here</a><br />
 				</p>
+				<p style="text-align: center">
+					<a href="${addLink}">ADD TO-DO</a><br />
+				</p>
 			</c:when>
 			<c:otherwise>
 				<div align="center">

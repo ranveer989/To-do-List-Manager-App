@@ -1,4 +1,6 @@
 package ranveer;
+import java.util.ArrayList;
+
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -13,6 +15,17 @@ public class User {
 	@Persistent
 	private Key id;
 	
+	@Persistent(mappedBy="parent")
+	private ArrayList<Todo> todos;
+	
+	
+	
+	public void addTodo(Todo t){
+		if (todos==null)	
+			todos=new ArrayList<Todo>();
+    	todos.add(t);
+    }
+	public ArrayList<Todo> getTodos(){ return todos;}
 	public Key getId() {
 		return id;
 	}

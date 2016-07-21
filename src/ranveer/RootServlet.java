@@ -29,6 +29,7 @@ public class RootServlet extends HttpServlet {
 		req.setAttribute("user", u);
 		req.setAttribute("login_url", login_url);
 		req.setAttribute("logout_url", logout_url);
+		req.setAttribute("addLink", "/add");
 		
 		String user_id;
 		PersistenceManager pm = PMF.get().getPersistenceManager();
