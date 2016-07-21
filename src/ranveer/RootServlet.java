@@ -30,6 +30,25 @@ public class RootServlet extends HttpServlet {
 		req.setAttribute("login_url", login_url);
 		req.setAttribute("logout_url", logout_url);
 		
+		String user_id;
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		try{
+			if (u != null) {
+				user_id = u.getUserId();
+				Key user_key = KeyFactory.createKey("User", user_id);
+				ranveer.User user;
+				user = pm.getObjectById(ranveer.User.class, user_key);
+			}
+		}catch(Exception e){
+			user_id = u.getUserId();
+			Key user_key = KeyFactory.createKey("User", user_id);
+			ranveer.User user = new ranveer.User(user_key,u.getEmail());
+			pm.makePersistent(user);
+		}
+		finally{
+			pm.close();
+		}
+		
 		//dispatch
 		RequestDispatcher req_dispatcher = req.getRequestDispatcher("/WEB-INF/root.jsp");
 		req_dispatcher.forward(req, resp);
