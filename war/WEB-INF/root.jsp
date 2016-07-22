@@ -50,13 +50,13 @@
 										out.write("<input type=\"checkbox\">" + todos.get(i));
 									out.write("<input type=\"submit\" name=\"" + (i+"edt")+"\" value=\"Edit\" \\>");
 									out.write("<input type=\"submit\" name=\"" + (i+"dlt")+"\" value=\"Delete\" \\>");
-									out.write("<br/><br/>");
+									out.write("<img id=\"bottom\" src=\"../images/bottom.png\" alt=\"\">");
+									out.write("<br/>");
 								}
 								out.write("</form>");
 								out.write("</div>");
 							}
 				%>
-			
 			</c:when>
 			<c:otherwise>
 				<div align="center">

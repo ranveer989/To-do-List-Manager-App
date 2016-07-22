@@ -22,6 +22,31 @@ public class RootServlet extends HttpServlet {
 	ArrayList<String> todos=new ArrayList<>();
 	ArrayList<Boolean> check_list=new ArrayList<>();
 	
+	private void displayAlert(String msg, String path, PrintWriter out) {
+		out.println("<script type=\"text/javascript\">");
+		out.println("alert('" + msg + "');");
+		out.println("location=" + path + ";");
+		out.println("</script>");
+	}
+	
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		UserService us = UserServiceFactory.getUserService();
+		com.google.appengine.api.users.User u = us.getCurrentUser();
+		if(u==null)
+			return;		
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Key user_key = KeyFactory.createKey("User", u.getUserId());
+		ranveer.User user =pm.getObjectById(ranveer.User.class, user_key);
+		
+		for (int i=0;i<user.getTodos().size();i++){
+			if(req.getParameter((i+"dlt"))!=null){
+				pm.deletePersistent(user.getTodos().get(i));pm.close();
+				displayAlert("To-Do Deleted!","'/'",resp.getWriter());
+				break;
+			}
+		}
+	}
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
 		UserService us = UserServiceFactory.getUserService();
@@ -45,7 +70,7 @@ public class RootServlet extends HttpServlet {
 				
 				check_list.clear();todos.clear();
 				for (Todo ctemp : user.getTodos()) {
-					todos.add(ctemp.getName().toUpperCase() + " ( " + ctemp.getDate() +" ) "+"     <===>    ");
+					todos.add("   "+ctemp.getName().toUpperCase() + " ( " + ctemp.getDate() +" ) "+"     <===>    ");
 					check_list.add(ctemp.isChecked());
 				}
 				req.setAttribute("to-do-list",todos);
