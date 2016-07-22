@@ -30,6 +30,7 @@ public class RootServlet extends HttpServlet {
 	}
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		PrintWriter out=resp.getWriter();
 		UserService us = UserServiceFactory.getUserService();
 		com.google.appengine.api.users.User u = us.getCurrentUser();
 		if(u==null)
@@ -37,6 +38,27 @@ public class RootServlet extends HttpServlet {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Key user_key = KeyFactory.createKey("User", u.getUserId());
 		ranveer.User user =pm.getObjectById(ranveer.User.class, user_key);
+		
+		if(req.getParameter("commit")!=null){
+			for (int i=0;i<user.getTodos().size();i++){				
+				try {
+					//checking key
+					pm = PMF.get().getPersistenceManager();
+					Todo t = pm.getObjectById(Todo.class, user.getTodos().get(i).getId());
+					if (req.getParameter(i+"chk")!=null)
+						t.setStatus(true);
+					else
+						t.setStatus(false);
+					pm.close();
+					displayAlert("Saved!","'/'",resp.getWriter());
+
+				} catch (Exception e) {}
+				finally {
+					pm.close();
+				}
+			}
+			return;
+		}
 		
 		for (int i=0;i<user.getTodos().size();i++){
 			if(req.getParameter((i+"dlt"))!=null){

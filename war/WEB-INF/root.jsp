@@ -45,14 +45,15 @@
 								out.write("<h2 align=\"center\">Your To-do List</h2><br/>");
 								for (int i = 0; i < todos.size(); i++) {
 									if (check_list.get(i))
-										out.write("<input type=\"checkbox\" checked>"+todos.get(i));
+										out.write("<input type=\"checkbox\"  checked name=\"" + (i + "chk") +"\" >"+todos.get(i));
 									else
-										out.write("<input type=\"checkbox\">" + todos.get(i));
+										out.write("<input type=\"checkbox\" name=\"" + (i + "chk") +"\" >"+ todos.get(i));
 									out.write("<input type=\"submit\" name=\"" + (i+"edt")+"\" value=\"Edit\" \\>");
 									out.write("<input type=\"submit\" name=\"" + (i+"dlt")+"\" value=\"Delete\" \\>");
 									out.write("<img id=\"bottom\" src=\"../images/bottom.png\" alt=\"\">");
 									out.write("<br/>");
 								}
+								out.write("</br><input type=\"submit\" style=\"height:8em; width:10em\" name=\"commit\" value=\"SYNC\" \\></br></br>");
 								out.write("</form>");
 								out.write("</div>");
 							}
