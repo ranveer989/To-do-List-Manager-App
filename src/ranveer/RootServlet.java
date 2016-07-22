@@ -65,6 +65,9 @@ public class RootServlet extends HttpServlet {
 				pm.deletePersistent(user.getTodos().get(i));pm.close();
 				displayAlert("To-Do Deleted!","'/'",resp.getWriter());
 				break;
+			}else if(req.getParameter((i+"EDIT"))!=null){
+				req.getSession().setAttribute("update",user.getTodos().get(i).getId());resp.sendRedirect("/edit");
+				break;
 			}
 		}
 	}

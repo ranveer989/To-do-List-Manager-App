@@ -8,6 +8,8 @@
 	<title>Add To-Do</title>
 	<link rel="stylesheet" type="text/css" href="../res/view.css" media="all">
 	<script type="text/javascript" src="../res/view.js"></script>
+	<script type="text/javascript" src="../res/calendar.js"></script>
+	
 
 </head>
 <body>

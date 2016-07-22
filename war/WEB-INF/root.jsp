@@ -48,7 +48,7 @@
 										out.write("<input type=\"checkbox\"  checked name=\"" + (i + "chk") +"\" >"+todos.get(i));
 									else
 										out.write("<input type=\"checkbox\" name=\"" + (i + "chk") +"\" >"+ todos.get(i));
-									out.write("<input type=\"submit\" name=\"" + (i+"edt")+"\" value=\"Edit\" \\>");
+									out.write("<input type=\"submit\" name=\"" + (i+"EDIT")+"\" value=\"Edit\" \\>");
 									out.write("<input type=\"submit\" name=\"" + (i+"dlt")+"\" value=\"Delete\" \\>");
 									out.write("<img id=\"bottom\" src=\"../images/bottom.png\" alt=\"\">");
 									out.write("<br/>");
